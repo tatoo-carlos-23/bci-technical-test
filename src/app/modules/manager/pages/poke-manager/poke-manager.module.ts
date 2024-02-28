@@ -5,7 +5,7 @@ import { PokeManagerRoutingModule } from './poke-manager-routing.module';
 import { PokeManagerComponent } from './poke-manager.component';
 import { TableComponent } from './components/table/table.component';
 import { AddUpdateComponent } from './components/add-update/add-update.component';
-
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -15,7 +15,8 @@ import { AddUpdateComponent } from './components/add-update/add-update.component
   ],
   imports: [
     CommonModule,
-    PokeManagerRoutingModule
+    PokeManagerRoutingModule,
+    MatButtonModule
   ]
 })
 export class PokeManagerModule { }
