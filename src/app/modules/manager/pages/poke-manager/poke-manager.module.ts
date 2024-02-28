@@ -2,23 +2,21 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { PokeManagerRoutingModule } from './poke-manager-routing.module';
-import { PokeManagerComponent } from './poke-manager.component';
-import { TableComponent } from './components/table/table.component';
+import { PokeManagerComponent } from './poke-manager.component'; 
 import { AddUpdateComponent } from './components/add-update/add-update.component';
 import { MatButtonModule } from '@angular/material/button';
-import { MatTableModule } from '@angular/material/table';
+import { STableModule } from '@shared-components';
 
 @NgModule({
   declarations: [
-    PokeManagerComponent,
-    TableComponent,
+    PokeManagerComponent, 
     AddUpdateComponent
   ],
   imports: [
     CommonModule,
     PokeManagerRoutingModule,
-    MatButtonModule,
-    MatTableModule
+    MatButtonModule, 
+    STableModule
   ]
 })
 export class PokeManagerModule { }

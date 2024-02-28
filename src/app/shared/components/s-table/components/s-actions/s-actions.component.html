@@ -1,0 +1,14 @@
+<div class="container-s-actions" [style.width]="getWidth">
+  <div
+    class="container-s-actions__icon"
+    *ngFor="let action of dataActions"
+    [matTooltip]="action.messageTooltip || ''"
+    matTooltipPosition="above"
+    [ngStyle]="stylesIcon(action)"
+  >
+    <mat-icon
+      aria-hidden="false" 
+      [fontIcon]="action.iconName"
+    ></mat-icon>
+  </div>
+</div>

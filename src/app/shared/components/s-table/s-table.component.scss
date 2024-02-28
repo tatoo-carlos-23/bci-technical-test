@@ -1,0 +1,33 @@
+table {
+    width: 100%;
+}
+
+.container-s-table {
+    &__empty {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        min-height: 130px;
+        color: var(--poke-color-primary);
+
+        mat-icon {
+            zoom: 3;
+        }
+
+        span {
+            font-size: 14px;
+        }
+    }
+
+    &__loading {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        min-height: 130px;
+        padding: 20px 0;
+    }
+}

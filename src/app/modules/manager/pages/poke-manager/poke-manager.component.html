@@ -3,5 +3,10 @@
     Agregar
   </button>
 </div>
-
-<app-table> </app-table>
+<br />
+<app-s-table
+  [dataHeaders]="dataHeaders"
+  [dataBody]="dataBody"
+  [dataActions]="dataActions"
+  [isLoading]="isLoading"
+></app-s-table>

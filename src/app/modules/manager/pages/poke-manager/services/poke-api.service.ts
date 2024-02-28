@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from 'src/environments/environment';
 import { lastValueFrom, map } from 'rxjs';
-import { IPokeApi } from 'src/app/core/interfaces';
+import { IPokeApi } from '@core-interfaces';
 
 @Injectable({
   providedIn: 'root'
