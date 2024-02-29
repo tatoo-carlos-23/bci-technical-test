@@ -7,6 +7,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatChipsModule } from '@angular/material/chips';
 import { SActionsComponent } from './components/s-actions/s-actions.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatIconModule,
     MatProgressSpinnerModule,
     MatChipsModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatPaginatorModule
   ],
   exports: [
     STableComponent

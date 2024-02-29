@@ -6,7 +6,11 @@
 <br />
 <app-s-table
   [dataHeaders]="dataHeaders"
-  [dataBody]="dataBody"
+  [dataBody]="dataBody.content"
   [dataActions]="dataActions"
   [isLoading]="isLoading"
+  [dataContentAll]="dataBody.totalElements"
+  [numberPage]="numberPage"
+  (changePage)="handlerChangePage($event)"
+  (changeAction)="handlerChangeAction($event)"
 ></app-s-table>

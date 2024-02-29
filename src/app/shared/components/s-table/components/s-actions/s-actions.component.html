@@ -5,10 +5,8 @@
     [matTooltip]="action.messageTooltip || ''"
     matTooltipPosition="above"
     [ngStyle]="stylesIcon(action)"
+    (click)="handlerChangeAction(action.name)"
   >
-    <mat-icon
-      aria-hidden="false" 
-      [fontIcon]="action.iconName"
-    ></mat-icon>
+    <mat-icon aria-hidden="false" [fontIcon]="action.iconName"></mat-icon>
   </div>
 </div>

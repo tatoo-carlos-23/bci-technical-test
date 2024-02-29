@@ -28,6 +28,9 @@
       ],
       "@core-interfaces": [
         "src/app/core/interfaces"
+      ],
+      "@core-services": [
+        "src/app/core/services"
       ]
     }
   },

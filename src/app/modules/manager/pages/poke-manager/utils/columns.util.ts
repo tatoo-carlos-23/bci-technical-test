@@ -21,11 +21,13 @@ export const dataHeaders: ITbColumn[] = [
 export const dataActions: ITbAction[] = [
     {
         iconName: 'delete',
+        name: 'delete',
         messageTooltip: 'Eliminar pokemon',
         color: '#f5222d'
     },
     {
         iconName: 'edit',
+        name: 'edit',
         messageTooltip: 'Editar pokemon',
         color: '#52c41a'
     }

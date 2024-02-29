@@ -1,0 +1,1 @@
+export { CLocalPaginationService } from "./c-local-pagination.service"

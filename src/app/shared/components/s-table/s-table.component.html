@@ -21,8 +21,15 @@
 
   <ng-container *ngIf="dataActions.length > 0" matColumnDef="actions">
     <th [style.width]="getWidth" mat-header-cell *matHeaderCellDef>Acciones</th>
-    <td [style.width]="getWidth" mat-cell *matCellDef="let element">
-      <app-s-actions [dataActions]="dataActions"></app-s-actions>
+    <td
+      [style.width]="getWidth"
+      mat-cell
+      *matCellDef="let element; let i = index"
+    >
+      <app-s-actions
+        [dataActions]="dataActions"
+        (changeAction)="handlerChangeAction($event, i, element)"
+      ></app-s-actions>
     </td>
   </ng-container>
 
@@ -45,3 +52,16 @@
     </td>
   </tr>
 </table>
+
+<mat-paginator
+  *ngIf="!isLoading"
+  [length]="dataContentAll"
+  [pageSizeOptions]="pageSizeOptions"
+  aria-label="Select page"
+  (page)="handlerChangePage($event)"
+  [pageIndex]="numberPage"
+  [pageSize]="numberSize"
+  [showFirstLastButtons]="false"
+  [hidePageSize]="true"
+>
+</mat-paginator>
