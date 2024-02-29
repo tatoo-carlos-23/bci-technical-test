@@ -1,0 +1,87 @@
+<h1 mat-dialog-title>Agregar pokemon</h1>
+<div mat-dialog-content>
+  <form [formGroup]="form" class="container-form">
+    <!-- ID -->
+    <mat-form-field class="example-form-field" appearance="fill">
+      <mat-label>ID</mat-label>
+      <input
+        [disabled]="true"
+        placeholder="ID numerico."
+        formControlName="pokemon_id"
+        matInput
+        [readonly]="true"
+        type="text"
+      />
+    </mat-form-field>
+    <!-- NOMBRE -->
+    <mat-form-field class="example-form-field" appearance="fill">
+      <mat-label>Nombre</mat-label>
+      <input
+        placeholder="Ingrese nombre"
+        matInput
+        type="text"
+        formControlName="pokemon_name"
+      />
+      <button
+        *ngIf="form.get('pokemon_name')?.value"
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        (click)="form.get('pokemon_name')?.setValue(null)"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <!-- FORM -->
+    <mat-form-field class="example-form-field" appearance="fill">
+      <mat-label>Form</mat-label>
+      <input
+        placeholder="Ingrese form"
+        matInput
+        type="text"
+        formControlName="form"
+      />
+      <button
+        *ngIf="form.get('form')?.value"
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        (click)="form.get('form')?.setValue(null)"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <!-- TYPE -->
+    <mat-form-field class="example-chip-list" appearance="fill">
+      <mat-label>Tipos</mat-label>
+      <mat-chip-list #chipList aria-label="chips selection">
+        <mat-chip *ngFor="let item of listChips" (removed)="removeChip(item)">
+          {{ item }}
+          <button matChipRemove>
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip>
+        <input
+          placeholder="Nuevo tipo..."
+          [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          [matChipInputAddOnBlur]="true"
+          (matChipInputTokenEnd)="addChip($event)"
+        />
+      </mat-chip-list>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button [mat-dialog-close]="undefined">No</button>
+  <button
+    [style.margin-left]="'10px'"
+    mat-raised-button
+    [mat-dialog-close]="form.value"
+    color="primary"
+    [disabled]="form.invalid"
+    cdkFocusInitial
+  >
+    Si
+  </button>
+</div>

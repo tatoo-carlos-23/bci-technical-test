@@ -5,7 +5,7 @@ import { PageEvent } from '@angular/material/paginator';
 @Component({
   selector: 'app-s-table',
   templateUrl: './s-table.component.html',
-  styleUrls: ['./s-table.component.scss']
+  styleUrls: ['./s-table.component.scss'],
 })
 export class STableComponent {
 

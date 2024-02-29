@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { PokeApiService } from './services/poke-api.service';
 import { ICPagination, IPokeApi } from '@core-interfaces';
 import { dataActions, dataHeaders } from './utils/columns.util';
@@ -6,11 +6,12 @@ import { ITbAction, ITbChangeAction, ITbColumn } from '@shared-components';
 import { CLocalPaginationService } from '@core-services';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteComponent } from './components/delete/delete.component';
+import { AddUpdateComponent } from './components/add-update/add-update.component';
 
 @Component({
   selector: 'app-poke-manager',
   templateUrl: './poke-manager.component.html',
-  styleUrls: ['./poke-manager.component.scss']
+  styleUrls: ['./poke-manager.component.scss'],
 })
 export class PokeManagerComponent {
 
@@ -22,6 +23,7 @@ export class PokeManagerComponent {
 
   private contentDataBody: IPokeApi[] = []
 
+  private isModeUpdate = false
 
   constructor(
     private pokeApiService: PokeApiService,
@@ -64,6 +66,8 @@ export class PokeManagerComponent {
   public handlerChangeAction(val: ITbChangeAction<IPokeApi>) {
     if (val.actionName === "delete") {
       this.openDialog(val.row)
+    } else if (val.actionName === "edit") {
+      this.openModalAddOrUpdate(val.row.pokemon_id)
     }
   }
 
@@ -91,5 +95,48 @@ export class PokeManagerComponent {
         this.deletePokemon(result)
       }
     });
+  }
+
+  openModalAddOrUpdate(pokemonId?: number) {
+    const pokemon: IPokeApi | undefined = this.contentDataBody.find(r => r.pokemon_id === pokemonId)
+    this.isModeUpdate = pokemon ? true : false
+    const modal = this.dialog.open(AddUpdateComponent, {
+      minWidth: '290px',
+      enterAnimationDuration: '10ms',
+      exitAnimationDuration: '10ms',
+      disableClose: true,
+      data: { ...pokemon }
+    })
+    modal.afterClosed().subscribe((result: IPokeApi) => {
+      if (result && this.isModeUpdate) {
+        this.updatePokemon(result)
+      } else if (result && !this.isModeUpdate) {
+        this.savePokemon(result)
+      } else {
+        this.changeGetData()
+      } 
+    });
+  }
+
+  private updatePokemon(pokemon: IPokeApi) {
+    try {
+      this.contentDataBody = this.contentDataBody.filter(fl => fl.pokemon_id !== pokemon.pokemon_id)
+      this.contentDataBody.push(pokemon)
+      this.contentDataBody = this.contentDataBody.reverse()
+      this.changeGetData()
+    } catch (error) {
+
+    }
+  }
+
+  private savePokemon(pokemon: IPokeApi) {
+    try {
+      pokemon.pokemon_id = (this.contentDataBody.length * 10) + this.contentDataBody.length
+      this.contentDataBody.push(pokemon)
+      this.contentDataBody = this.contentDataBody.reverse()
+      this.changeGetData()
+    } catch (error) {
+
+    }
   }
 }
