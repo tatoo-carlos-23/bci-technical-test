@@ -44,7 +44,7 @@ export class PokeManagerComponent {
     }
   }
 
-  private async changeGetData() {
+  private changeGetData() {
     this.isLoading = true
     this.dataBody.content = []
     try {
@@ -61,7 +61,7 @@ export class PokeManagerComponent {
     this.changeGetData()
   }
 
-  public handlerChangeAction(val: ITbChangeAction<IPokeApi>) { 
+  public handlerChangeAction(val: ITbChangeAction<IPokeApi>) {
     if (val.actionName === "delete") {
       this.openDialog(val.row)
     }

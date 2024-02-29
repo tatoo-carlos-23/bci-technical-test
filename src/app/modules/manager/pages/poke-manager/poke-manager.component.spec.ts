@@ -27,4 +27,11 @@ describe('PokeManagerComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('should changeGetData', () => {
+    it('result ok', () => {
+      component['changeGetData']();
+      expect(component.dataBody.content.length).toEqual(0)
+    })
+  })
 });

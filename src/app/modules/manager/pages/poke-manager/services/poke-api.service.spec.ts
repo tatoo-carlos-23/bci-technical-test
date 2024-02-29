@@ -29,4 +29,13 @@ describe('PokeApiService', () => {
       expect(service['transformDataBody'](dataBody).length).toEqual(2)
     })
   })
+  describe('should deleteRepeats', () => {
+    it('case ok', () => {
+      const dataBody: IPokeApi[] = [
+        { pokemon_id: 1, pokemon_name: '', form: '', type: [] },
+        { pokemon_id: 1, pokemon_name: '', form: '', type: [] },
+      ]
+      expect(service['deleteRepeats'](dataBody).length).toEqual(1)
+    })
+  })
 });
