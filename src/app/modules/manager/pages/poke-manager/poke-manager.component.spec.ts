@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PokeManagerComponent } from './poke-manager.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MatDialogModule } from '@angular/material/dialog';
 
 describe('PokeManagerComponent', () => {
   let component: PokeManagerComponent;
@@ -8,9 +10,14 @@ describe('PokeManagerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PokeManagerComponent ]
-    })
-    .compileComponents();
+      declarations: [
+        PokeManagerComponent
+      ],
+      imports: [
+        HttpClientTestingModule,
+        MatDialogModule
+      ]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(PokeManagerComponent);
     component = fixture.componentInstance;
