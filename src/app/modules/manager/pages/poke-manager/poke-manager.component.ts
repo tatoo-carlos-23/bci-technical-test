@@ -4,6 +4,8 @@ import { ICPagination, IPokeApi } from '@core-interfaces';
 import { dataActions, dataHeaders } from './utils/columns.util';
 import { ITbAction, ITbChangeAction, ITbColumn } from '@shared-components';
 import { CLocalPaginationService } from '@core-services';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteComponent } from './components/delete/delete.component';
 
 @Component({
   selector: 'app-poke-manager',
@@ -16,14 +18,15 @@ export class PokeManagerComponent {
   public readonly dataActions: ITbAction[] = dataActions;
   public isLoading: boolean = true;
   public dataBody: ICPagination<IPokeApi> = {} as ICPagination<IPokeApi>;
-  public numberPage = 1;
+  public numberPage = 0;
 
   private contentDataBody: IPokeApi[] = []
 
 
   constructor(
     private pokeApiService: PokeApiService,
-    private localPaginationService: CLocalPaginationService
+    private localPaginationService: CLocalPaginationService,
+    private dialog: MatDialog
   ) {
     this.getData()
   }
@@ -45,7 +48,7 @@ export class PokeManagerComponent {
     this.isLoading = true
     this.dataBody.content = []
     try {
-      this.dataBody = this.localPaginationService.pagination(this.contentDataBody, this.numberPage)
+      this.dataBody = this.localPaginationService.pagination(this.contentDataBody, this.numberPage + 1)
     } catch (error) {
       this.isLoading = false;
     } finally {
@@ -54,11 +57,39 @@ export class PokeManagerComponent {
   }
 
   handlerChangePage(page: number) {
-    this.numberPage = page + 1;
+    this.numberPage = page;
     this.changeGetData()
   }
 
-  public handlerChangeAction(val: ITbChangeAction) {
-    console.warn("Data actions selected: ", val)
+  public handlerChangeAction(val: ITbChangeAction<IPokeApi>) { 
+    if (val.actionName === "delete") {
+      this.openDialog(val.row)
+    }
+  }
+
+  private deletePokemon(row: IPokeApi) {
+    try {
+      this.numberPage = 0
+      this.contentDataBody = this.contentDataBody.filter(fl => fl.pokemon_id !== row.pokemon_id)
+      this.changeGetData()
+    } catch (error) {
+      console.warn('Error: ', error)
+    }
+  }
+
+  openDialog(pokemon: IPokeApi): void {
+    const modal = this.dialog.open(DeleteComponent, {
+      width: '250px',
+      enterAnimationDuration: '10ms',
+      exitAnimationDuration: '10ms',
+      disableClose: true,
+      data: { ...pokemon }
+    })
+
+    modal.afterClosed().subscribe((result: IPokeApi) => {
+      if (result) {
+        this.deletePokemon(result)
+      }
+    });
   }
 }

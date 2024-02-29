@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>Eliminar</h1>
+<div mat-dialog-content>
+  Desea eliminar a <strong>{{ data.pokemon_name }}</strong
+  >?
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button [mat-dialog-close]="undefined">No</button>
+  <button
+    [style.margin-left]="'10px'"
+    mat-raised-button
+    [mat-dialog-close]="data"
+    color="primary"
+    cdkFocusInitial
+  >
+    Si
+  </button>
+</div>

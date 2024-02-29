@@ -2,6 +2,11 @@ table {
     width: 100%;
 }
 
+.container-all-table {
+    width: 100%;
+    overflow-x: scroll;
+}
+
 .container-s-table {
     &__empty {
         display: flex;

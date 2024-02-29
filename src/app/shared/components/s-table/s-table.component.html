@@ -1,57 +1,70 @@
-<table mat-table [dataSource]="dataBody" class="mat-elevation-z8">
-  <ng-container *ngFor="let header of dataHeaders" [matColumnDef]="header.id">
-    <th mat-header-cell *matHeaderCellDef>{{ header.label }}</th>
-    <td mat-cell *matCellDef="let element">
-      <div *ngIf="header?.columnConfig && header.columnConfig?.type === 'chip'">
-        <mat-chip-list
-          class="example-chip"
-          cdkDropList
-          cdkDropListOrientation="horizontal"
+<div class="container-all-table">
+  <table mat-table [dataSource]="dataBody" class="mat-elevation-z8">
+    <ng-container *ngFor="let header of dataHeaders" [matColumnDef]="header.id">
+      <th mat-header-cell *matHeaderCellDef>{{ header.label }}</th>
+      <td
+        mat-cell
+        *matCellDef="let element"
+        style="max-width: 180px; min-width: 180px"
+      >
+        <div
+          *ngIf="header?.columnConfig && header.columnConfig?.type === 'chip'"
         >
-          <mat-chip class="example-box" *ngFor="let chip of element[header.id]">
-            {{ chip }}
-          </mat-chip>
-        </mat-chip-list>
-      </div>
-      <div *ngIf="!header?.columnConfig">
-        {{ element[header.id] }}
-      </div>
-    </td>
-  </ng-container>
+          <mat-chip-list
+            class="example-chip"
+            cdkDropList
+            cdkDropListOrientation="horizontal"
+          >
+            <mat-chip
+              class="example-box"
+              *ngFor="let chip of element[header.id]"
+            >
+              {{ chip }}
+            </mat-chip>
+          </mat-chip-list>
+        </div>
+        <div *ngIf="!header?.columnConfig">
+          {{ element[header.id] }}
+        </div>
+      </td>
+    </ng-container>
 
-  <ng-container *ngIf="dataActions.length > 0" matColumnDef="actions">
-    <th [style.width]="getWidth" mat-header-cell *matHeaderCellDef>Acciones</th>
-    <td
-      [style.width]="getWidth"
-      mat-cell
-      *matCellDef="let element; let i = index"
-    >
-      <app-s-actions
-        [dataActions]="dataActions"
-        (changeAction)="handlerChangeAction($event, i, element)"
-      ></app-s-actions>
-    </td>
-  </ng-container>
+    <ng-container *ngIf="dataActions.length > 0" matColumnDef="actions">
+      <th [style.width]="getWidth" mat-header-cell *matHeaderCellDef>
+        Acciones
+      </th>
+      <td
+        [style.width]="getWidth"
+        mat-cell
+        *matCellDef="let element; let i = index"
+      >
+        <app-s-actions
+          [dataActions]="dataActions"
+          (changeAction)="handlerChangeAction($event, i, element)"
+        ></app-s-actions>
+      </td>
+    </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="getColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: getColumns"></tr>
+    <tr mat-header-row *matHeaderRowDef="getColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: getColumns"></tr>
 
-  <tr class="mat-row" *matNoDataRow>
-    <td class="mat-cell" [attr.colspan]="12">
-      <div class="container-s-table__empty" *ngIf="!isLoading">
-        <mat-icon
-          aria-hidden="false"
-          aria-label="Example home icon"
-          fontIcon="check_box_outline_blank"
-        ></mat-icon>
-        <span>No se encontro información</span>
-      </div>
-      <div class="container-s-table__loading" *ngIf="isLoading">
-        <mat-spinner></mat-spinner>
-      </div>
-    </td>
-  </tr>
-</table>
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" [attr.colspan]="12">
+        <div class="container-s-table__empty" *ngIf="!isLoading">
+          <mat-icon
+            aria-hidden="false"
+            aria-label="Example home icon"
+            fontIcon="check_box_outline_blank"
+          ></mat-icon>
+          <span>No se encontro información</span>
+        </div>
+        <div class="container-s-table__loading" *ngIf="isLoading">
+          <mat-spinner></mat-spinner>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
 
 <mat-paginator
   *ngIf="!isLoading"
