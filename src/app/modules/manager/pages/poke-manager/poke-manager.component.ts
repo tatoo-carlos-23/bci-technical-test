@@ -7,6 +7,7 @@ import { CLocalPaginationService } from '@core-services';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteComponent } from './components/delete/delete.component';
 import { AddUpdateComponent } from './components/add-update/add-update.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-poke-manager',
@@ -28,7 +29,8 @@ export class PokeManagerComponent {
   constructor(
     private pokeApiService: PokeApiService,
     private localPaginationService: CLocalPaginationService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private toastr: ToastrService
   ) {
     this.getData()
   }
@@ -41,6 +43,7 @@ export class PokeManagerComponent {
       this.changeGetData()
     } catch (error) {
       this.isLoading = false;
+      this.toastr.error('Ocurrio un error, porfavor recarge la pagina');
     } finally {
       this.isLoading = false;
     }
@@ -53,6 +56,7 @@ export class PokeManagerComponent {
       this.dataBody = this.localPaginationService.pagination(this.contentDataBody, this.numberPage + 1)
     } catch (error) {
       this.isLoading = false;
+      this.toastr.error('Ocurrio un error, intente denuevo porfavor.');
     } finally {
       this.isLoading = false;
     }
@@ -77,7 +81,9 @@ export class PokeManagerComponent {
       this.contentDataBody = this.contentDataBody.filter(fl => fl.pokemon_id !== row.pokemon_id)
       this.changeGetData()
     } catch (error) {
-      console.warn('Error: ', error)
+      this.toastr.error('Ocurrio un error, intente denuevo porfavor.');
+    } finally {
+      this.toastr.info('Se elimino correctamente el pokemon.');
     }
   }
 
@@ -114,7 +120,7 @@ export class PokeManagerComponent {
         this.savePokemon(result)
       } else {
         this.changeGetData()
-      } 
+      }
     });
   }
 
@@ -125,7 +131,9 @@ export class PokeManagerComponent {
       this.contentDataBody = this.contentDataBody.reverse()
       this.changeGetData()
     } catch (error) {
-
+      this.toastr.error('Ocurrio un error, intente denuevo porfavor.');
+    } finally {
+      this.toastr.success('Se actualizo correctamente el pokemon.');
     }
   }
 
@@ -136,7 +144,9 @@ export class PokeManagerComponent {
       this.contentDataBody = this.contentDataBody.reverse()
       this.changeGetData()
     } catch (error) {
-
+      this.toastr.error('Ocurrio un error, intente denuevo porfavor.');
+    } finally {
+      this.toastr.success('Se agrego correctamente el pokemon ' + pokemon.pokemon_name);
     }
   }
 }

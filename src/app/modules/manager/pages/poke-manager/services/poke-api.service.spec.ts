@@ -1,19 +1,20 @@
 import { TestBed } from '@angular/core/testing';
 
 import { PokeApiService } from './poke-api.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { IPokeApi } from '@core-interfaces';
 
 describe('PokeApiService', () => {
   let service: PokeApiService;
+  let controller: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule
-      ]
+      imports: [HttpClientTestingModule],
+      providers: [PokeApiService]
     });
     service = TestBed.inject(PokeApiService);
+    controller = TestBed.inject(HttpTestingController);
   });
 
   it('should be created', () => {
@@ -38,4 +39,7 @@ describe('PokeApiService', () => {
       expect(service['deleteRepeats'](dataBody).length).toEqual(1)
     })
   })
+
+ 
+
 });
